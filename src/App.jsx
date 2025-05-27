@@ -8,7 +8,7 @@ function App() {
     const { tasks, addTask, toggleTaskDone, deleteTaskDone } = useTasks();
 
     return (
-        <main className="min-h bg-gray-100 text-gray-800 p-4 max-w-xl mx-auto absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+        <main className="min-h-screen bg-gray-100 text-gray-800 p-4 w-full mx-auto absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
             <h1 className="text-2xl font-bold mb-4">📋 Task Tracker</h1>
             <TaskForm onAdd={addTask} />
             <TaskList
