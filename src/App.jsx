@@ -1,23 +1,51 @@
-import TaskForm from "./components/TaskForm";
-import TaskList from "./components/TaskList";
-import { useTasks } from "./hooks/useTasks";
-import { useNotifications } from "./hooks/useNotifications";
+import { useEffect, useState } from "react";
+import { supabase } from "./lib/supabaseClient";
+import Login from "./auth/Login";
+import Signup from "./auth/Signup";
+import TaskApp from "./components/TaskApp"; // tu app de tareas
 
-function App() {
-    useNotifications(useTasks().tasks);
-    const { tasks, addTask, toggleTaskDone, deleteTaskDone } = useTasks();
+export default function App() {
+    const [session, setSession] = useState(null);
+    const [showLogin, setShowLogin] = useState(true);
+
+    useEffect(() => {
+        supabase.auth.getSession().then(({ data: { session } }) => {
+            setSession(session);
+        });
+        const { data: listener } = supabase.auth.onAuthStateChange(
+            (_event, session) => {
+                setSession(session);
+            }
+        );
+        return () => listener?.subscription.unsubscribe();
+    }, []);
+
+    if (!session) {
+        return (
+            <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100">
+                {showLogin ? (
+                    <Login onSuccess={() => {}} />
+                ) : (
+                    <Signup onSuccess={() => {}} />
+                )}
+                <p className="mt-4 text-sm text-gray-700">
+                    {showLogin
+                        ? "¿No tienes cuenta?"
+                        : "¿Ya tienes una cuenta?"}
+                    <button
+                        onClick={() => setShowLogin(!showLogin)}
+                        className="ml-2 text-blue-600 hover:underline"
+                    >
+                        {showLogin ? "Regístrate" : "Inicia sesión"}
+                    </button>
+                </p>
+            </div>
+        );
+    }
 
     return (
-        <main className="min-h-screen bg-gray-100 text-gray-800 p-4 w-full mx-auto absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
-            <h1 className="text-2xl font-bold mb-4">📋 Task Tracker</h1>
-            <TaskForm onAdd={addTask} />
-            <TaskList
-                tasks={tasks}
-                onToggle={toggleTaskDone}
-                onDelete={deleteTaskDone}
-            />
-        </main>
+        <div className="p-4">
+            <TaskApp user={session.user} />
+        </div>
     );
 }
-
-export default App;
