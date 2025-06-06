@@ -26,9 +26,10 @@ export function useTasks(userId) {
     const addTask = async (title, repeat = null) => {
         const { data, error } = await supabase.from("tasks").insert([
             {
-                title,
+                title: title.title,
                 user_id: userId,
-                repeat,
+                repeat: title.repeat,
+                created_at: title.date,
             },
         ]);
 

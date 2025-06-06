@@ -12,12 +12,12 @@ export default function TaskList({ tasks, onToggle, onDelete }) {
                     <label className="flex items-center gap-2">
                         <input
                             type="checkbox"
-                            checked={task.done}
-                            onChange={() => onToggle(task.id)}
+                            checked={task.is_done}
+                            onChange={() => onToggle(task.id, task.is_done)}
                         />
                         <span
                             className={
-                                task.done ? "line-through text-gray-500" : ""
+                                task.is_done ? "line-through text-gray-500" : ""
                             }
                         >
                             {task.title}
@@ -30,7 +30,7 @@ export default function TaskList({ tasks, onToggle, onDelete }) {
                         <button
                             onClick={() => onDelete(task.id)}
                             className={
-                                task.done
+                                task.is_done
                                     ? "text-red-500 text-sm hover:underline"
                                     : "hidden"
                             }
