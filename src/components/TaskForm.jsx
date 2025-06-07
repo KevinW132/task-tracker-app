@@ -25,12 +25,12 @@ export default function TaskForm({ onAdd }) {
                 value={title}
                 onChange={(e) => setTitle(e.target.value)}
                 placeholder="Escribe una tarea..."
-                className="w-full p-2 border rounded"
+                className="w-full p-2 border rounded bg-gray-700"
             />
             <select
                 value={repeat}
                 onChange={(e) => setRepeat(e.target.value)}
-                className="w-full p-2 border rounded"
+                className="w-full p-2 border rounded bg-gray-700"
             >
                 <option value="none">No repetir</option>
                 <option value="daily">Repetir diario</option>
@@ -39,7 +39,7 @@ export default function TaskForm({ onAdd }) {
             </select>
             <button
                 type="submit"
-                className="w-full bg-blue-600 text-white p-2 rounded hover:bg-blue-700"
+                className="w-full bg-blue-900 text-white p-2 rounded hover:bg-blue-700"
             >
                 Agregar tarea
             </button>

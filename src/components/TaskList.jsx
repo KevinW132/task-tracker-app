@@ -7,7 +7,7 @@ export default function TaskList({ tasks, onToggle, onDelete }) {
             {tasks.map((task) => (
                 <li
                     key={task.id}
-                    className="flex items-center justify-between bg-white p-2 rounded shadow"
+                    className="flex items-center justify-between bg-gray-700 p-2 rounded shadow"
                 >
                     <label className="flex items-center gap-2">
                         <input
@@ -24,7 +24,7 @@ export default function TaskList({ tasks, onToggle, onDelete }) {
                         </span>
                     </label>
                     <div className="flex items-center gap-2">
-                        <small className="text-xs text-gray-500">
+                        <small className="text-xs text-gray-200">
                             {task.repeat}
                         </small>
                         <button
@@ -35,7 +35,7 @@ export default function TaskList({ tasks, onToggle, onDelete }) {
                                     : "hidden"
                             }
                         >
-                            🗑
+                            delete
                         </button>
                     </div>
                 </li>

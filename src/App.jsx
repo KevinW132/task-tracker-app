@@ -22,13 +22,13 @@ export default function App() {
 
     if (!session) {
         return (
-            <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100">
+            <div className="flex flex-col items-center justify-center min-h-screen bg-gray-900">
                 {showLogin ? (
                     <Login onSuccess={() => {}} />
                 ) : (
                     <Signup onSuccess={() => {}} />
                 )}
-                <p className="mt-4 text-sm text-gray-700">
+                <p className="mt-4 text-sm text-gray-200">
                     {showLogin
                         ? "¿No tienes cuenta?"
                         : "¿Ya tienes una cuenta?"}

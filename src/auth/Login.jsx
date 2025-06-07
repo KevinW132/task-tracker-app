@@ -17,12 +17,12 @@ export default function Login({ onSuccess }) {
     };
 
     return (
-        <div className="flex flex-col items-center justify-center bg-gray-100">
+        <div className="flex flex-col items-center justify-center bg-gray-900">
             <form
                 onSubmit={handleLogin}
-                className="bg-white p-6 rounded-xl shadow-md w-full max-w-sm"
+                className="bg-black p-6 rounded-xl shadow-md w-full max-w-sm"
             >
-                <h2 className="text-2xl font-bold mb-4 text-center">
+                <h2 className="text-2xl font-bold mb-4 text-center text-white">
                     Iniciar sesión
                 </h2>
 
@@ -45,7 +45,7 @@ export default function Login({ onSuccess }) {
 
                 <button
                     type="submit"
-                    className="w-full bg-blue-600 text-white p-2 rounded hover:bg-blue-700"
+                    className="w-full bg-blue-900 text-white p-2 rounded hover:bg-blue-700"
                 >
                     Entrar
                 </button>
