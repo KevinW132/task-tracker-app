@@ -8,8 +8,8 @@ export function useDailyNotifications(tasks = []) {
         const startOfDay = new Date();
         const endOfDay = new Date();
 
-        startOfDay.setHours(now.getHours(), now.getMinutes() + 1, 0, 0);
-        endOfDay.setHours(now.getHours(), now.getMinutes() + 2, 0, 0);
+        startOfDay.setHours(8, 0, 0, 0); // 8:00 a.m.
+        endOfDay.setHours(21, 0, 0, 0); // 9:00 p.m.
 
         const timeToMorning = startOfDay - now;
         const timeToNight = endOfDay - now;
