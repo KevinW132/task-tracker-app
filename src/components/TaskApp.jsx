@@ -4,6 +4,7 @@ import { useTasks } from "../hooks/useTasks";
 import { useNotifications } from "../hooks/useNotifications";
 import { supabase } from "../lib/supabaseClient";
 import { NotificationToggle } from "./NotificationToggle";
+import { useDailyNotifications } from "../hooks/useDailyNotifications";
 
 function TaskApp({ user }) {
     const { tasks, addTask, toggleTaskDone, deleteTaskDone, tasklength } =
@@ -15,6 +16,7 @@ function TaskApp({ user }) {
         location.reload();
     };
 
+    useDailyNotifications(tasks);
     return (
         <main className="min-h-screen bg-gray-900 text-gray-200 p-4 w-full mx-auto absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
             <div className="flex justify-between items-center mb-4">
