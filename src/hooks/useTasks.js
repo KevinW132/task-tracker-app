@@ -3,24 +3,50 @@ import { supabase } from "../lib/supabaseClient";
 
 export function useTasks(userId) {
     const [tasks, setTasks] = useState([]);
+    const [loading, setLoading] = useState(true);
+
+    // ✅ 1. Obtener tareas del usuario actual
+    const fetchTasks = async () => {
+        setLoading(true);
+        const { data, error } = await supabase
+            .from("tasks")
+            .select("*")
+            .eq("user_id", userId)
+            .order("created_at", { ascending: true });
+
+        if (error) {
+            console.error("Error al obtener tareas:", error);
+        } else {
+            setTasks(data);
+        }
+
+        setLoading(false);
+    };
+
+    // ✅ 2. Hook para cargar al inicio
+    useEffect(() => {
+        if (userId) {
+            fetchTasks();
+        }
+    }, [userId]);
 
     // Cargar tareas del usuario desde Supabase
-    useEffect(() => {
-        if (!userId) return;
+    // useEffect(() => {
+    //     if (!userId) return;
 
-        const fetchTasks = async () => {
-            const { data, error } = await supabase
-                .from("tasks")
-                .select("*")
-                .eq("user_id", userId)
-                .order("created_at", { ascending: false });
+    //     const fetchTasks = async () => {
+    //         const { data, error } = await supabase
+    //             .from("tasks")
+    //             .select("*")
+    //             .eq("user_id", userId)
+    //             .order("created_at", { ascending: false });
 
-            if (error) console.error("Error fetching tasks:", error);
-            else setTasks(data);
-        };
+    //         if (error) console.error("Error fetching tasks:", error);
+    //         else setTasks(data);
+    //     };
 
-        fetchTasks();
-    }, [userId]);
+    //     fetchTasks();
+    // }, [userId]);
 
     // Agregar tarea
     const addTask = async (title, repeat = null) => {
@@ -33,6 +59,7 @@ export function useTasks(userId) {
             },
         ]);
 
+        await fetchTasks();
         if (!error && data) {
             setTasks((prev) => [data[0], ...prev]);
         }
